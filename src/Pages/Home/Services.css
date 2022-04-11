@@ -1,0 +1,18 @@
+.service-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.service-name {
+    border: 5px solid lightslategray;
+    border-radius: 5px;
+}
+
+.service-name img {
+    width: 100%;
+}
+
+.service {
+    padding: 10px;
+}
