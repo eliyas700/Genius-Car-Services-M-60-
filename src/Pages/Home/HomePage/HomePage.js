@@ -4,6 +4,7 @@ import Services from "../Services";
 import banner1 from "../../../images/banner/banner1.jpg";
 import banner2 from "../../../images/banner/banner2.jpg";
 import banner3 from "../../../images/banner/banner3.jpg";
+import Experts from "../../Experts/Experts";
 
 const HomePage = () => {
   const [index, setIndex] = useState(0);
@@ -42,6 +43,7 @@ const HomePage = () => {
       </Carousel>
 
       <Services></Services>
+      <Experts></Experts>
     </div>
   );
 };
