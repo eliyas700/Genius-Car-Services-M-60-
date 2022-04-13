@@ -1,10 +1,19 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const SignUp = () => {
   const [validated, setValidated] = useState(false);
+  const [createUserWithEmailAndPassword, user, loading] =
+    useCreateUserWithEmailAndPassword(auth);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
+  if (user) {
+    navigate("/home");
+  }
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -18,7 +27,16 @@ const SignUp = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     const confirmPass = event.target.confirmPassword.value;
-    console.log(name);
+    if (password.length < 6) {
+      setError("Password Should be atleast 6 Characters");
+    } else {
+      if (password === confirmPass) {
+        createUserWithEmailAndPassword(email, password);
+      } else {
+        setError("Sorry ! Password Didn't Match");
+        setValidated(false);
+      }
+    }
   };
   return (
     <div className=" container w-50 mt-3 pb-5">
@@ -86,6 +104,7 @@ const SignUp = () => {
             Password Didnt Match.
           </Form.Control.Feedback>
         </Form.Group>
+        <p className="text-danger">{error}</p>
         <Button variant="primary" type="submit">
           Register Now
         </Button>
