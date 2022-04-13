@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [validated, setValidated] = useState(false);
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -16,9 +14,11 @@ const SignUp = () => {
     }
 
     setValidated(true);
-    const email = emailRef.current.value;
-    const password = passwordRef.current.value;
-    console.log(email, password);
+    const name = event.target.name.value;
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const confirmPass = event.target.confirmPassword.value;
+    console.log(name);
   };
   return (
     <div className=" container w-50 mt-3 pb-5">
@@ -32,9 +32,9 @@ const SignUp = () => {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Your Name</Form.Label>
           <Form.Control
-            ref={emailRef}
             required
             type="text"
+            name="name"
             placeholder="Type Your Name"
           />
 
@@ -46,9 +46,9 @@ const SignUp = () => {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
-            ref={emailRef}
             required
             type="email"
+            name="email"
             placeholder="Enter email"
           />
           <Form.Text className="text-muted">
@@ -63,8 +63,8 @@ const SignUp = () => {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            ref={passwordRef}
             required
+            name="password"
             type="password"
             placeholder="Password"
           />
@@ -76,8 +76,8 @@ const SignUp = () => {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
-            ref={passwordRef}
             required
+            name="confirmPassword"
             type="password"
             placeholder="Re-type Your Password"
           />
