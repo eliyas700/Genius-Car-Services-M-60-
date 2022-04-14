@@ -3,6 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
+import SocialLogin from "./SocialLogin/SocialLogin";
 
 const Login = () => {
   const [validated, setValidated] = useState(false);
@@ -47,12 +48,9 @@ const Login = () => {
             type="email"
             placeholder="Enter email"
           />
-          <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
-          </Form.Text>
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
-            Invaild Email.
+            Invalid Email.
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -80,6 +78,9 @@ const Login = () => {
           Register Now
         </Link>
       </p>
+      <div>
+        <SocialLogin></SocialLogin>
+      </div>
     </div>
   );
 };

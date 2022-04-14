@@ -1,0 +1,9 @@
+.social-icons button {
+    box-shadow: 5px 5px 10px #3e3e3e;
+    transition: .5s ease-in-out;
+}
+
+.social-icons button:hover {
+    transform: scale(1.06);
+    box-shadow: none;
+}
