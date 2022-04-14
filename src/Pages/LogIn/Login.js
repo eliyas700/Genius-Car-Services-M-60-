@@ -67,7 +67,7 @@ const Login = () => {
             Invaild Email.
           </Form.Control.Feedback>
         </Form.Group>
-        <p className="text-danger">{error}</p>
+        <p className="text-danger">{error?.message}</p>
         <Button variant="primary" type="submit">
           Log In
         </Button>
