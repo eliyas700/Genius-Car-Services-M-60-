@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import SocialLogin from "./SocialLogin/SocialLogin";
-
+import Loading from "./Loading/Loading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const SignUp = () => {
   const [checked, setChecked] = useState(false);
   const [validated, setValidated] = useState(false);
+  const [updateProfile, updating, upadeProfileError] = useUpdateProfile(auth);
   const [createUserWithEmailAndPassword, user, loading] =
-    useCreateUserWithEmailAndPassword(auth);
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  if (loading || updating) {
+    return <Loading></Loading>;
+  }
   let errorMessage;
   if (error) {
     errorMessage = (
@@ -21,9 +30,9 @@ const SignUp = () => {
     );
   }
   if (user) {
-    navigate("/home");
+    console.log(user);
   }
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -40,7 +49,12 @@ const SignUp = () => {
       setError("Password Should be atleast 6 Characters");
     } else {
       if (password === confirmPass) {
-        createUserWithEmailAndPassword(email, password);
+        if (checked) {
+          await createUserWithEmailAndPassword(email, password);
+          await updateProfile({ displayName: name });
+          navigate("/home");
+          toast("Creating Account");
+        }
       } else {
         setError("Sorry ! Password Didn't Match");
         setValidated(false);
@@ -134,6 +148,7 @@ const SignUp = () => {
       </p>
       <div>
         <SocialLogin></SocialLogin>
+        <ToastContainer></ToastContainer>
       </div>
     </div>
   );

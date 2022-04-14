@@ -6,8 +6,10 @@ import {
 } from "react-firebase-hooks/auth";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import auth from "../../firebase.init";
+import Loading from "./Loading/Loading";
 import SocialLogin from "./SocialLogin/SocialLogin";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   const [validated, setValidated] = useState(false);
   const emailRef = useRef("");
@@ -21,7 +23,9 @@ const Login = () => {
   if (user) {
     navigate(from, { replace: true });
   }
-
+  if (loading) {
+    return <Loading></Loading>;
+  }
   const handleFormSubmit = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -35,11 +39,10 @@ const Login = () => {
     const password = passwordRef.current.value;
     signInWithEmailAndPassword(email, password);
   };
-
   const handleResetPassword = async () => {
     const email = emailRef.current.value;
+    !email ? toast("Please Enter Your Email") : toast("Sent email");
     await sendPasswordResetEmail(email);
-    alert("Sent email");
   };
   return (
     <div className=" container w-50 mt-5 pt-4 pb-5">
@@ -89,23 +92,26 @@ const Login = () => {
         </div>
       </Form>
       <p>
-        Forget Password?{" "}
-        <Link
-          className="text-warning text-decoration-none"
+        Forget Password?
+        <button
+          className=" btn btn-link text-warning text-decoration-none"
           onClick={handleResetPassword}
-          to="/login"
         >
           Reset Password
-        </Link>
+        </button>
       </p>
       <p>
-        New to Genius Car?{" "}
-        <Link className="text-warning text-decoration-none" to="/signup">
+        New to Genius Car?
+        <Link
+          to="/signup"
+          className=" btn btn-link text-warning text-decoration-none"
+        >
           Register Now
         </Link>
       </p>
       <div>
         <SocialLogin></SocialLogin>
+        <ToastContainer></ToastContainer>
       </div>
     </div>
   );

@@ -68,7 +68,7 @@ const Header = () => {
                         height={28}
                         className="rounded-circle"
                         src={user.photoURL}
-                        alt={user.email}
+                        alt={user.displayName}
                         srcset=""
                       />
                     </small>
