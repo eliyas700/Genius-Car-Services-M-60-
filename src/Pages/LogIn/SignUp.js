@@ -6,6 +6,7 @@ import auth from "../../firebase.init";
 import SocialLogin from "./SocialLogin/SocialLogin";
 
 const SignUp = () => {
+  const [checked, setChecked] = useState(false);
   const [validated, setValidated] = useState(false);
   const [createUserWithEmailAndPassword, user, loading] =
     useCreateUserWithEmailAndPassword(auth);
@@ -114,13 +115,14 @@ const SignUp = () => {
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
             <Form.Check
               type="checkbox"
-              required
+              onClick={() => setChecked(!checked)}
+              className={!checked ? "text-danger" : "text-success"}
               label="Accept the terms and conditions of Genius Car Service"
             />
           </Form.Group>
         </Form.Group>
         <p className="text-danger">{errorMessage}</p>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" disabled={!checked} type="submit">
           Register Now
         </Button>
       </Form>
