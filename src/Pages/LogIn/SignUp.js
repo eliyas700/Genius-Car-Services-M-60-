@@ -111,6 +111,13 @@ const SignUp = () => {
           <Form.Control.Feedback type="invalid">
             Password Didnt Match.
           </Form.Control.Feedback>
+          <Form.Group className="mb-3" controlId="formBasicCheckbox">
+            <Form.Check
+              type="checkbox"
+              required
+              label="Accept the terms and conditions of Genius Car Service"
+            />
+          </Form.Group>
         </Form.Group>
         <p className="text-danger">{errorMessage}</p>
         <Button variant="primary" type="submit">
