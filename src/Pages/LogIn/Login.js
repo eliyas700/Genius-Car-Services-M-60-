@@ -94,7 +94,7 @@ const Login = () => {
       <p>
         Forget Password?
         <button
-          className=" btn btn-link text-warning text-decoration-none"
+          className=" btn border-0 btn-link text-warning text-decoration-none"
           onClick={handleResetPassword}
         >
           Reset Password
