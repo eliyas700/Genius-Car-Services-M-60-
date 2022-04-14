@@ -3,21 +3,25 @@ import google from "../../../images/Social/google.png";
 import facebook from "../../../images/Social/facebook.png";
 import github from "../../../images/Social/github.png";
 import "./SocialLogin.css";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+  useSignInWithGithub,
+  useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import auth from "../../../firebase.init";
 import { useNavigate } from "react-router-dom";
 const SocialLogin = () => {
   const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+  const [signInWithGithub, user1, loading1, error1] = useSignInWithGithub(auth);
   const navigate = useNavigate();
   let errorElement;
-  if (error) {
+  if (error || error1) {
     errorElement = (
       <div>
-        <p>Error: {error.message}</p>
+        <p>Error: {error?.message || error1?.message}</p>
       </div>
     );
   }
-  if (user) {
+  if (user || user1) {
     navigate("/home");
   }
   return (
@@ -51,10 +55,12 @@ const SocialLogin = () => {
           <span className="text-white ms-2">Continue With Facebook </span>
         </button>
         <button
+          onClick={() => signInWithGithub()}
           style={{ outline: "none" }}
           className="w-75 py-2 rounded-pill border-secondary"
         >
-          <img height={30} src={github} alt="" /> Continue With GitHub{" "}
+          <img height={30} src={github} alt="" /> Continue With{" "}
+          {loading1 ? "Loading" : "GitHub"}{" "}
         </button>
       </div>
     </div>

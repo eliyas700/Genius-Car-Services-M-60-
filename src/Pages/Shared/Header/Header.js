@@ -8,6 +8,7 @@ import logo from "../../../images/logo.png";
 
 const Header = () => {
   const [user] = useAuthState(auth);
+  console.log(user);
   const handleSignOut = () => {
     signOut(auth);
   };
@@ -60,6 +61,18 @@ const Header = () => {
                   }}
                   onClick={handleSignOut}
                 >
+                  <span>
+                    <small>
+                      <img
+                        title={user.email}
+                        height={28}
+                        className="rounded-circle"
+                        src={user.photoURL}
+                        alt={user.email}
+                        srcset=""
+                      />
+                    </small>
+                  </span>{" "}
                   Sign Out
                 </button>
               )}

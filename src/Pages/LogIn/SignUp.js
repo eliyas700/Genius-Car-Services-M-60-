@@ -11,7 +11,14 @@ const SignUp = () => {
     useCreateUserWithEmailAndPassword(auth);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  let errorMessage;
+  if (error) {
+    errorMessage = (
+      <div>
+        <p>{error?.message}</p>
+      </div>
+    );
+  }
   if (user) {
     navigate("/home");
   }
@@ -105,7 +112,7 @@ const SignUp = () => {
             Password Didnt Match.
           </Form.Control.Feedback>
         </Form.Group>
-        <p className="text-danger">{error}</p>
+        <p className="text-danger">{errorMessage}</p>
         <Button variant="primary" type="submit">
           Register Now
         </Button>
