@@ -10,6 +10,7 @@ import Loading from "./Loading/Loading";
 import SocialLogin from "./SocialLogin/SocialLogin";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PageTitle from "../Shared/PageTitle/PageTitle";
 const Login = () => {
   const [validated, setValidated] = useState(false);
   const emailRef = useRef("");
@@ -46,6 +47,7 @@ const Login = () => {
   };
   return (
     <div className=" container w-50 mt-5 pt-4 pb-5">
+      <PageTitle title="Log In"></PageTitle>
       <h2 className="text-primary my-3">Please Log In</h2>
       <Form
         noValidate

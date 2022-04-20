@@ -10,6 +10,7 @@ import SocialLogin from "./SocialLogin/SocialLogin";
 import Loading from "./Loading/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PageTitle from "../Shared/PageTitle/PageTitle";
 const SignUp = () => {
   const [checked, setChecked] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -63,6 +64,7 @@ const SignUp = () => {
   };
   return (
     <div className=" container w-50 mt-3 pb-5">
+      <PageTitle title="Sign Up"></PageTitle>
       <h2 className="text-primary my-3">Register Now</h2>
       <Form
         noValidate
