@@ -12,6 +12,7 @@ import RequireAuth from "./Pages/LogIn/RequireAuth/RequireAuth";
 import CheckOut from "./Pages/CheckOut/CheckOut";
 import AddService from "./Pages/AddService/AddService";
 import ManageServices from "./Pages/ManageServices/ManageServices";
+import { ToastContainer } from "react-toastify";
 function App() {
   return (
     <div className="App">
@@ -53,6 +54,7 @@ function App() {
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
       <Footer></Footer>
+      <ToastContainer />
     </div>
   );
 }
