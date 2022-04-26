@@ -20,14 +20,16 @@ const CheckOut = () => {
       address: event.target.address.value,
       phone: event.target.phone.value,
     };
-    axios.post("http://localhost:5000/order", orderInfo).then((response) => {
-      console.log(response);
-      const { data } = response;
-      if (data.insertedId) {
-        toast("Congratulations! Your Order Confirmed");
-        event.target.reset();
-      }
-    });
+    axios
+      .post("https://obscure-headland-04507.herokuapp.com/order", orderInfo)
+      .then((response) => {
+        console.log(response);
+        const { data } = response;
+        if (data.insertedId) {
+          toast("Congratulations! Your Order Confirmed");
+          event.target.reset();
+        }
+      });
   };
   return (
     <div>

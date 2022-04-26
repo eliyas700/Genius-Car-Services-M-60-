@@ -12,11 +12,11 @@ const Order = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const getOrders = async () => {
-      const email = user.email;
-      // fetch(`http://localhost:5000/order?email=${email}`)
+      const email = user?.email;
+      // fetch(`https://obscure-headland-04507.herokuapp.com/order?email=${email}`)
       //   .then((res) => res.json())
       //   .then((data) => setOrders(data));
-      const url = `http://localhost:5000/order?email=${email}`;
+      const url = `https://obscure-headland-04507.herokuapp.com/order?email=${email}`;
       try {
         const { data } = await axiosPrivate.get(url);
         setOrders(data);
@@ -33,6 +33,14 @@ const Order = () => {
   return (
     <div>
       <h2>This Is from Order Section:{orders.length}</h2>
+      {orders.map((order) => (
+        <>
+          <h3>
+            {order?.email} -{" "}
+            <span className="text-success">{order?.service}</span>
+          </h3>
+        </>
+      ))}
     </div>
   );
 };

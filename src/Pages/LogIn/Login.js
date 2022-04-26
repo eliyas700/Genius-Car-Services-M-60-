@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
 import axios from "axios";
+import useToken from "../Hooks/useToken";
 const Login = () => {
   const [validated, setValidated] = useState(false);
   const emailRef = useRef("");
@@ -22,7 +23,8 @@ const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
   const [sendPasswordResetEmail] = useSendPasswordResetEmail(auth);
-  if (user) {
+  const [token] = useToken(user);
+  if (token) {
     navigate(from, { replace: true });
   }
   if (loading) {
@@ -40,9 +42,6 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     await signInWithEmailAndPassword(email, password);
-    const { data } = await axios.post("http://localhost:5000/jwt", { email });
-    localStorage.setItem("accessToken", data.accessToken);
-    console.log(data);
   };
   const handleResetPassword = async () => {
     const email = emailRef.current.value;

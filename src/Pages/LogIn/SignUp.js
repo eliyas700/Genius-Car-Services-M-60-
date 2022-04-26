@@ -11,6 +11,7 @@ import Loading from "./Loading/Loading";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
+import useToken from "../Hooks/useToken";
 const SignUp = () => {
   const [checked, setChecked] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -19,6 +20,7 @@ const SignUp = () => {
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [token] = useToken(user);
   if (loading || updating) {
     return <Loading></Loading>;
   }
@@ -30,8 +32,8 @@ const SignUp = () => {
       </div>
     );
   }
-  if (user) {
-    console.log(user);
+  if (token) {
+    navigate("/home");
   }
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -53,7 +55,7 @@ const SignUp = () => {
         if (checked) {
           await createUserWithEmailAndPassword(email, password);
           await updateProfile({ displayName: name });
-          navigate("/home");
+
           toast("Creating Account");
         }
       } else {
