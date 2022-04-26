@@ -11,6 +11,7 @@ import SocialLogin from "./SocialLogin/SocialLogin";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PageTitle from "../Shared/PageTitle/PageTitle";
+import axios from "axios";
 const Login = () => {
   const [validated, setValidated] = useState(false);
   const emailRef = useRef("");
@@ -27,7 +28,7 @@ const Login = () => {
   if (loading) {
     return <Loading></Loading>;
   }
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -38,7 +39,10 @@ const Login = () => {
     setValidated(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    signInWithEmailAndPassword(email, password);
+    await signInWithEmailAndPassword(email, password);
+    const { data } = await axios.post("http://localhost:5000/jwt", { email });
+    localStorage.setItem("accessToken", data.accessToken);
+    console.log(data);
   };
   const handleResetPassword = async () => {
     const email = emailRef.current.value;
